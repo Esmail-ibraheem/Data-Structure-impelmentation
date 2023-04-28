@@ -1,0 +1,212 @@
+#include <iostream>  
+using namespace std ; 
+struct Node
+{
+	int data;
+	 Node* next;
+};
+void addFirst(Node* &head, int nodeData)
+{
+	Node* newNode1 = new Node;
+
+	newNode1->data = nodeData;
+	newNode1->next = head;
+
+	head = newNode1;
+}
+void addAfter(Node* &head, int afterValue, int nodeData)
+{
+	if (head == NULL)
+	{
+		cout << "the given node is NULL"<<endl;
+		return;
+
+	}
+	Node* cur = head;
+	Node* newNode1 = new Node;
+	newNode1->data = nodeData;
+	if (cur->data == afterValue) {
+		newNode1->next = cur->next;
+		cur->next = newNode1;
+		return;
+	}
+	
+	while (cur->next != NULL) {
+		if (cur->next->data == afterValue) {
+			newNode1->next = cur->next->next;
+			cur->next->next = newNode1;
+			return;
+		}
+		cur = cur->next;
+	}
+	
+	cout << ".... error! value you want to insert after is not found ....";
+	
+}
+void addLast(Node* &head, int nodeData)
+{
+	Node* newNode1 = new Node;
+
+	Node* last = head;
+	newNode1->data = nodeData;
+	newNode1->next = NULL;
+	if (head == NULL)
+	{
+		head = newNode1;
+		return;
+	}
+	while (last->next != NULL) {
+		last = last->next;
+	}	
+	last->next = newNode1;
+	return;
+}
+void displayList(Node* node)
+{
+	while (node != NULL)
+	{
+		cout << node->data << "-->";
+		node = node->next;
+	}
+
+	if (node == NULL)
+		cout << "null"<<endl;
+
+}
+
+int countNodes(Node* ls) {
+	Node* n = ls;
+	int counter = 0;
+	if (ls == NULL)
+		return 0;
+	while (n != NULL) {
+		n = n->next;
+		counter++;
+	}
+
+	return counter;
+}
+
+void deleteValue(Node*& h, int val) {
+	if (h == NULL) {
+		cout << "-- list is null! --" << endl;
+		return;
+	}
+	if (h->data == val) {
+		Node* h1 = h;
+		h = h->next;
+		delete h1;
+		h1 = NULL;
+		return;
+	}
+	else {
+		Node* t = h;
+		while (t->next != NULL)
+		{
+			if (t->next->data == val) {
+				Node* cur = t->next->next;
+				delete t->next;
+				t->next = cur;
+				cur = NULL;
+				return;
+			}
+
+			t = t->next;
+		}
+
+		cout << "--- value not found ---" << endl;
+	}
+	
+
+}
+int deleteFirst(Node* &head)
+{
+	if (head == NULL)
+		return NULL;
+	Node* tempNode = head;
+	head = head->next;
+	int val = tempNode->data;
+	delete tempNode;
+
+	return val;
+}
+int deleteLast(Node* &head)
+{
+	if (head == NULL) {
+		cout << "list is empty! no item to remove\n";
+		return NULL;
+	}
+		
+
+	if (head->next == NULL) {
+		int val = head->data;
+		delete head;
+		return val;
+	}
+	Node* secondLast = head;
+	while (secondLast->next->next != NULL) {
+		secondLast = secondLast->next;
+	}
+	int val = secondLast->next->data;
+	delete (secondLast->next);
+	secondLast->next = NULL;
+
+	return val;
+}
+
+void deleteMax(Node*& h) {
+	int mx = h->data;
+	Node* t = h;
+	while (t->next != NULL)
+	{
+		if (t->next->data > mx) {
+			mx = t->next->data;
+		}
+
+		t = t->next;
+	}
+	deleteValue(h, mx);
+	cout << "=== Max value deleted " << mx << " ===" << endl;
+
+}
+
+void calculateSum(Node*& h) {
+	cout << "--- Calculate Sum Function ---" << endl;
+	Node* t = h;
+	int sum = 0;
+	while (t != NULL)
+	{
+		sum += t->data;
+		t = t->next;
+	}
+	addLast(h, sum);
+}
+
+int main()
+{
+	Node* head = NULL;
+	Node* head2 = NULL;
+	addAfter(head, 12, 55);
+	cout << "last deleted value: " << deleteLast(head) << endl;
+	addFirst(head, 25);
+	addFirst(head, 89);
+	addFirst(head, 65);
+	addFirst(head, 13);
+	addFirst(head, 95);
+	addFirst(head, 34);
+	addLast(head, 44);
+	cout << "-- Node Count: " << countNodes(head) << endl;
+	displayList(head);
+	calculateSum(head);
+	displayList(head);
+	calculateSum(head);
+	displayList(head);
+	deleteMax(head);
+	displayList(head);
+	deleteMax(head);
+	displayList(head);
+	deleteMax(head);
+	displayList(head);
+	getchar();
+	return 0;
+}
