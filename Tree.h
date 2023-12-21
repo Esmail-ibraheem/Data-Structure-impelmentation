@@ -70,13 +70,13 @@ class Binary_Tree{
         void Display_BinaryTree(){
             Node* root = NULL ; 
             Create_BT(root, 25);
-	        Create_BT(root, 15);
+	    Create_BT(root, 15);
             Create_BT(root ,10) ; 
-	        Create_BT(root, 4);
-	        Create_BT(root, 12);
-	        Create_BT(root, 22);
-	        Create_BT(root, 18);
-	        Create_BT(root, 24);
+	    Create_BT(root, 4);
+	    Create_BT(root, 12);
+	    Create_BT(root, 22);
+	    Create_BT(root, 18);
+	    Create_BT(root, 24);
             Create_BT(root, 50);
             Create_BT(root, 35);
             Create_BT(root, 31);
